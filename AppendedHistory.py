@@ -4,6 +4,7 @@ import matplotlib.patches as mpatches
 import matplotlib.lines as mlines
 import numpy as np
 from matplotlib.ticker import MaxNLocator
+from operator import itemgetter
 
 def get_legend(colormap, vars_, varname, lines=True, alphas=[1, 0.5], linestyles=['--', '-']):
     """Creates a legend with patches and lines for plotting learning curves."""
@@ -76,6 +77,11 @@ class AppendedHistory:
         for key in self.__history.keys():
             if key != self.__varname:
                 self.__history[key][ind] = self.__history[key][ind] + history.history[key]
+
+    def order(self, reverse=False):
+    	sorted_inds, sorted_vars = zip(*sorted([(i,e) for i,e in enumerate(self.__history[self.__varname])], key=itemgetter(1), reverse=reverse))
+    	for key in self.__history.keys():
+    		self.__history[key] = [self.__history[key][i] for i in sorted_inds]
                 
     def merge(self, history):
         """Merge 2 histories."""
