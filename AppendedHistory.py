@@ -191,7 +191,7 @@ class AppendedHistory:
         """
 
         with plt.style.context('ggplot'):
-            fig = plt.figure(figsize=(9, 6))
+            fig = plt.figure(figsize=(9, 9))
             ax = []
             ax.append(fig.add_subplot(211))
             ax.append(fig.add_subplot(212))
@@ -203,7 +203,7 @@ class AppendedHistory:
             ax[1].set_xlabel('Epochs')
             ax[1].set_yscale('log')
 
-            colormap = cm.gist_rainbow(np.linspace(0, 1, len(self.__history[self.__varname])))[slice_]
+            colormap = plt.cm.gist_rainbow(np.linspace(0, 1, len(self.__history[self.__varname])))[slice_]
             
             for i, mode in enumerate(['acc', 'loss']):
                 color_iter = iter(colormap)
@@ -228,10 +228,10 @@ class AppendedHistory:
 
             # Put a legend to the right of the current axis
             if prefix_2:
-                legend = get_legend(colormap, self.__history[self.__varname][slice_])
+                legend = get_legend(colormap, self.__history[self.__varname][slice_], self.__varname)
             else:
-                legend = get_legend(colormap, self.__history[self.__varname][slice_], lines=False)
-            ax[0].legend(handles=legend, loc='lower right')#, bbox_to_anchor=(1.135, 1.0))
+                legend = get_legend(colormap, self.__history[self.__varname][slice_], self.__varname, lines=False)
+            ax[0].legend(handles=legend)#, loc='lower right' bbox_to_anchor=(1.135, 1.0))
 
         plt.show()
         
