@@ -57,6 +57,9 @@ class AppendedHistory:
 
     def get_history(self):
         return self.__history
+    
+    def set_vars(self, vars_):
+        self.__history[self.__varname] = vars_
 
     def change_varname(self, varname):
         self.__history[varname] = self.__history[self.__varname]
@@ -77,11 +80,14 @@ class AppendedHistory:
         for key in self.__history.keys():
             if key != self.__varname:
                 self.__history[key][ind] = self.__history[key][ind] + history.history[key]
+                
+    def str_var(self):
+        self.__history[self.__varname] = [str(var) for var in self.__history[self.__varname]]
 
     def order(self, reverse=False):
-    	sorted_inds, sorted_vars = zip(*sorted([(i,e) for i,e in enumerate(self.__history[self.__varname])], key=itemgetter(1), reverse=reverse))
-    	for key in self.__history.keys():
-    		self.__history[key] = [self.__history[key][i] for i in sorted_inds]
+        sorted_inds, sorted_vars = zip(*sorted([(i,e) for i,e in enumerate(self.__history[self.__varname])], key=itemgetter(1), reverse=reverse))
+        for key in self.__history.keys():
+            self.__history[key] = [self.__history[key][i] for i in sorted_inds]
                 
     def merge(self, history):
         """Merge 2 histories."""
