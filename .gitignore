@@ -1,3 +1,4 @@
 .ipynb_checkpoints/
-__pycache__/
 playground.ipynb
+helpers/__pycache__/
+data/incite/models_log/
